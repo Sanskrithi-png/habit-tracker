@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Shared Habit Tracker</h2>
+
+<table>
+<tr>
+  <th>Date</th>
+  {% for h in habits %}<th>{{ h }}</th>{% endfor %}
+</tr>
+
+{% for d, items in data.items() %}
+<tr>
+  <td>{{ d[-2:] }}</td>
+  {% for h in habits %}
+  <td>{% if items.get(h) %}✔{% endif %}</td>
+  {% endfor %}
+</tr>
+{% endfor %}
+</table>
+{% endblock %}

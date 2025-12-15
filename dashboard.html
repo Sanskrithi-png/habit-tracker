@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Dashboard</h2>
+<canvas id="chart" height="120"></canvas>
+
+<ul>
+{% for s in stats %}
+<li>{{ s.habit }} — ✔ {{ s.completed }} | 🔥 {{ s.streak }}</li>
+{% endfor %}
+</ul>
+
+<p>Share:
+<input value="{{ share_url }}" readonly style="width:70%"></p>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+new Chart(document.getElementById("chart"), {
+  type: "bar",
+  data: {
+    labels: {{ stats|map(attribute='habit')|list|tojson }},
+    datasets: [{
+      label: "Completed Days",
+      data: {{ stats|map(attribute='completed')|list|tojson }}
+    }]
+  }
+});
+</script>
+
+<a href="/">⬅ Back</a>
+
+{% endblock %}

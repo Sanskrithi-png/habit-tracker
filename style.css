@@ -1,0 +1,45 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  background: var(--bg);
+  color: var(--text);
+}
+
+:root {
+  --bg: #ffffff;
+  --text: #000;
+  --card: #f4f4f4;
+}
+
+.dark {
+  --bg: #121212;
+  --text: #eaeaea;
+  --card: #1e1e1e;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card);
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 6px;
+  text-align: center;
+}
+
+input, select, button {
+  padding: 6px;
+  margin: 4px 0;
+}
+
+button {
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  table {
+    font-size: 12px;
+  }
+}
