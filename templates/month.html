@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Habit Tracker</h2>
+
+<form method="get">
+  <select name="month" onchange="this.form.submit()">
+    {% for m in range(1,13) %}
+    <option value="{{ m }}" {% if m==month %}selected{% endif %}>
+      {{ ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][m-1] }}
+    </option>
+    {% endfor %}
+  </select>
+</form>
+
+<form method="post" action="/add_habit">
+  <input name="habit" placeholder="Add habit">
+  <button>Add</button>
+</form>
+
+<table>
+<tr>
+  <th>Date</th>
+  {% for h in habits %}<th>{{ h }}</th>{% endfor %}
+</tr>
+
+{% for d, items in data.items() %}
+<tr>
+  <td>{{ d[-2:] }}</td>
+  {% for h in habits %}
+  <td>
+    <form method="post" action="/update">
+      <input type="hidden" name="date" value="{{ d }}">
+      <input type="hidden" name="habit" value="{{ h }}">
+      <input type="checkbox" name="value"
+        onchange="this.form.submit()"
+        {% if items.get(h) %}checked{% endif %}>
+    </form>
+  </td>
+  {% endfor %}
+</tr>
+{% endfor %}
+</table>
+
+<p>
+  <a href="/dashboard">📊 Dashboard</a> |
+  <a href="/logout">Logout</a>
+</p>
+
+{% endblock %}
